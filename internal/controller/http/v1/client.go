@@ -21,7 +21,7 @@ func (h *Handler) addAccount(c *gin.Context) {
 		return
 	}
 
-	clientID, err := h.services.AddAccount(newClient)
+	clientID, err := h.services.AddClient(newClient)
 	if err != nil {
 		newErrorResponse(c, http.StatusInternalServerError, "client add failed")
 		return

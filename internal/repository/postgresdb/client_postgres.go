@@ -18,15 +18,27 @@ func NewClientToPostgres(db *sqlx.DB) *ClientToPostgres {
 }
 
 // Adding client information to the database.
-func (c *ClientToPostgres) AddAccount(add entity.Client) (int, error) {
+func (c *ClientToPostgres) AddClient(add entity.Client) (int, error) {
+	tx, err := c.db.Begin()
+	if err != nil {
+		return 0, err
+	}
 	var clientID int
 	queryToClient := fmt.Sprintf(`INSERT INTO %s (client_name, password_hash) values ($1, $2) RETURNING id`, clientTable)
-	rowClient := c.db.QueryRow(queryToClient, add.ClientName, add.Password)
-	err := rowClient.Scan(&clientID)
+	rowClient := tx.QueryRow(queryToClient, add.ClientName, add.Password)
+	err = rowClient.Scan(&clientID)
 	if err != nil {
 		log.Debugf("repository.AddClient - rowClient.Scan : %v", err)
+		tx.Rollback()
+		return 0, err
+	}
+	queryToStatus := fmt.Sprintf(`INSERT INTO %s (client_id) values ($1) RETURNING id`, accountsTable)
+	_, err = tx.Exec(queryToStatus, clientID)
+	if err != nil {
+		tx.Rollback()
+		log.Debugf("repository.AddClient - tx.Exec : %v", err)
 		return 0, err
 	}
 
-	return clientID, nil
+	return clientID, tx.Commit()
 }

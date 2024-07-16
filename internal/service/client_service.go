@@ -22,14 +22,14 @@ func NewClientService(repo postgresdb.ClientPostgres, cfg *config.Config) *Clien
 		config: *cfg}
 }
 
-func (s *ClientService) AddAccount(client entity.Client) (int, error) {
+func (s *ClientService) AddClient(client entity.Client) (int, error) {
 
 	password, err := generatePasswordHash(client.Password, s.config)
 	if err != nil {
 		return 0, err
 	}
 	client.Password = password
-	return s.repo.AddAccount(client)
+	return s.repo.AddClient(client)
 }
 
 // generatePasswordHash generates a SHA1 hash of the given password with a salt.

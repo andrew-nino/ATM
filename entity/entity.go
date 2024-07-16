@@ -9,5 +9,7 @@ type Client struct {
 	UpdatedAt  time.Time `db:"update_at" json:"-"`
 }
 
-type Account struct {
+type Transaction struct {
+	AccountId int `json:"-"`
+	Amount float64 `json:"amount"`
 }

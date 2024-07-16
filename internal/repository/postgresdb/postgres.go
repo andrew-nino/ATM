@@ -7,15 +7,23 @@ import (
 )
 
 type ClientPostgres interface {
-	AddAccount(client entity.Client) (int, error)
+	AddClient(client entity.Client) (int, error)
+}
+
+type AccountRepository interface {
+	Deposit(entity.Transaction) error
+	Withdraw(entity.Transaction) error
+	GetBalance(int) float64
 }
 
 type PG_Repository struct {
 	ClientPostgres
+	AccountRepository
 }
 
 func NewPGRepository(db *sqlx.DB) *PG_Repository {
 	return &PG_Repository{
-		ClientPostgres:          NewClientToPostgres(db),
+		ClientPostgres:  NewClientToPostgres(db),
+		AccountRepository: NewAccountRepository(db),
 	}
 }

@@ -1,5 +1,6 @@
 package postgresdb
 
 const (
-	clientTable  = "clients"
+	clientTable   = "clients"
+	accountsTable = "accounts"
 )

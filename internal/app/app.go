@@ -47,7 +47,7 @@ func Run(configPath string) {
 	// Services dependencies
 	log.Info("Initializing services...")
 	repos := repoPG.NewPGRepository(db)
-	service := service.NewService(repos,cfg)
+	service := service.NewService(repos, cfg)
 	handlers := handler.NewHandler(service)
 
 	// HTTP server
