@@ -9,6 +9,8 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// We receive account data, check it for correctness and transfer it to the service layer.
+// If there is no error, we return a success message.
 func (h *Handler) deposit(c *gin.Context) {
 
 	paramStr := c.Param("id")
@@ -43,6 +45,8 @@ func (h *Handler) deposit(c *gin.Context) {
 	})
 }
 
+// We receive account data, check it for correctness and transfer it to the service layer.
+// If there is no error, we return a success message.
 func (h *Handler) withdraw(c *gin.Context) {
 	paramStr := c.Param("id")
 	if paramStr == "" {
@@ -75,6 +79,8 @@ func (h *Handler) withdraw(c *gin.Context) {
 	})
 }
 
+// We receive account data, check it for correctness and transfer it to the service layer.
+// If there is no error, we return a balance.
 func (h *Handler) getBalance(c *gin.Context) {
 	paramStr := c.Param("id")
 	if paramStr == "" {
@@ -93,5 +99,4 @@ func (h *Handler) getBalance(c *gin.Context) {
 	c.JSON(http.StatusOK, gin.H{
         "balance": balance,
     })
-
 }

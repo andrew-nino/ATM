@@ -25,6 +25,5 @@ func (h *Handler) InitRoutes() *gin.Engine {
 		v1.GET("/accounts/:id/balance", h.getBalance)
 
 	}
-
 	return router
 }

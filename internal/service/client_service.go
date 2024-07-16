@@ -22,6 +22,7 @@ func NewClientService(repo postgresdb.ClientPostgres, cfg *config.Config) *Clien
 		config: *cfg}
 }
 
+// We change the password to a hash and transfer it to the repository.
 func (s *ClientService) AddClient(client entity.Client) (int, error) {
 
 	password, err := generatePasswordHash(client.Password, s.config)
