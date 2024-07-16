@@ -1,0 +1,20 @@
+app:
+  name: "vortex_algorithms_synchronization"
+  version: "1.0.0"
+
+postgres:
+  username: "postgres"
+  host: "localhost"
+  port: "5432"
+  dbname: "postgres"
+  sslmode: "disable"
+  password: "qwerty"
+
+http:
+  port: 8000
+
+log:
+  level: "debug"
+
+sha:
+  salt: "klwnrkmw;rlg[e'tk[]]"
